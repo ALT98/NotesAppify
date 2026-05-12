@@ -1,10 +1,21 @@
 package com.notesappify.ui.components
 
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -12,7 +23,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.notesappify.data.Notes
 
 @Composable
 fun TextUi(text: String) {
@@ -22,9 +35,7 @@ fun TextUi(text: String) {
 @Composable
 fun TextFieldUi(value: String, label: String, onValueChange: (String) -> Unit) {
     OutlinedTextField(
-        value = value, onValueChange = onValueChange,
-        modifier = Modifier.fillMaxWidth(),
-        label = {
+        value = value, onValueChange = onValueChange, modifier = Modifier.fillMaxWidth(), label = {
             Text(text = label)
         })
 }
@@ -40,5 +51,40 @@ fun ButtonUi(text: String, enabled: Boolean, onClick: () -> Unit) {
         )
     ) {
         Text(text = text, color = Color.White, fontWeight = FontWeight.Bold)
+    }
+}
+
+@Composable
+fun CardUi(notes: Notes, delete: () -> Unit, update: () -> Unit) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(18.dp),
+        elevation = CardDefaults.cardElevation(6.dp),
+        shape = RoundedCornerShape(25.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = Color.White
+        )
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(15.dp)
+        ) {
+            Row {
+                IconButton(onClick = update) {
+                    Icon(imageVector = Icons.Default.Edit, contentDescription = "")
+                }
+                IconButton(onClick = delete) {
+                    Icon(
+                        imageVector = Icons.Default.Delete,
+                        contentDescription = "",
+                        tint = Color.Red
+                    )
+                }
+            }
+            Text(notes.title)
+            Text(notes.description)
+        }
     }
 }
