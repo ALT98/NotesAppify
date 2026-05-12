@@ -40,6 +40,12 @@ class NotesViewModel @Inject constructor(private val dao: NotesDao) : ViewModel(
         }
     }
 
+    fun setNote(id: Int) {
+        viewModelScope.launch {
+            _notesValidation.value = dao.getCurrentNote(id)
+        }
+    }
+
     fun setTitle(title: String) {
         _notesValidation.update {
             it.copy(title = title)

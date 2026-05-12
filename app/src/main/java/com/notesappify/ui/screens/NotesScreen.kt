@@ -26,7 +26,8 @@ import com.notesappify.ui.viewmodel.NotesViewModel
 @Composable
 fun NotesScreens(
     notesViewModel: NotesViewModel = hiltViewModel(),
-    addNotes: () -> Unit
+    addNotes: () -> Unit,
+    update:(String) -> Unit
 ) {
     val allNotes = notesViewModel.getNotes.collectAsState(initial = listOf())
 
@@ -51,7 +52,7 @@ fun NotesScreens(
                     showDialog = true
                     currentNote = note
                 }, update = {
-
+                    update(note.id.toString())
                 })
             }
         }

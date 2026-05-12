@@ -20,9 +20,15 @@ import com.notesappify.ui.components.TextUi
 import com.notesappify.ui.viewmodel.NotesViewModel
 
 @Composable
-fun AddNotesScreen(notesViewModel: NotesViewModel = hiltViewModel()) {
+fun AddNotesScreen(idNote: Int?, notesViewModel: NotesViewModel = hiltViewModel()) {
     val notes by notesViewModel.notesValidation.collectAsState()
     val context = LocalContext.current
+
+    LaunchedEffect(idNote) {
+        if(idNote != null) {
+            notesViewModel.setNote(idNote)
+        }
+    }
 
     LaunchedEffect(Unit) {
         notesViewModel.message.collect {
