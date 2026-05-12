@@ -35,7 +35,7 @@ fun ButtonUi(text: String, enabled: Boolean, onClick: () -> Unit) {
         onClick = onClick,
         enabled = enabled,
         modifier = Modifier.fillMaxWidth(),
-        colors = ButtonDefaults.textButtonColors(
+        colors = ButtonDefaults.buttonColors(
             containerColor = Color.Blue
         )
     ) {
