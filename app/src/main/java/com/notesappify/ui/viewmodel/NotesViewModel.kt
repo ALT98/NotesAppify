@@ -29,10 +29,16 @@ class NotesViewModel @Inject constructor(private val dao: NotesDao) : ViewModel(
         viewModelScope.launch {
             dao.insertNote(_notesValidation.value)
             _message.emit("registro realizado con éxito")
+            _notesValidation.value = Notes()
         }
     }
 
-
+    fun deleteNote(note: Notes) {
+        viewModelScope.launch {
+            dao.deleteNote(note)
+            _message.emit("registro eliminado con éxito")
+        }
+    }
 
     fun setTitle(title: String) {
         _notesValidation.update {
