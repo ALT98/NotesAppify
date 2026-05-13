@@ -27,13 +27,6 @@ This project was built as a **learning portfolio project** to demonstrate:
 - Effective use of **Room Database** and **Hilt**
 - Well-organized, maintainable code structure
 
-## 📂 Project Structure
-textapp/src/main/java/com/notesappify/
-├── data/          # Room entities, DAO, Database
-├── di/            # Hilt dependency injection modules
-├── ui/            # Compose screens, components, theme & navigation
-└── MainActivity.kt
-
 ## 📌 What I Learned
 
 - Building fully declarative UIs with Jetpack Compose
