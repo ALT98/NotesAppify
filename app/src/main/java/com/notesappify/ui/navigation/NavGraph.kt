@@ -31,7 +31,9 @@ fun NavGraph() {
             })
         ) {
             val idNote = it.arguments?.getString("idNote")?.toIntOrNull()
-            AddNotesScreen(idNote)
+            AddNotesScreen(idNote) {
+                navController.navigateUp()
+            }
         }
     }
 }

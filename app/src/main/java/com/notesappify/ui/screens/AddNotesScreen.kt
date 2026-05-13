@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
@@ -20,12 +21,16 @@ import com.notesappify.ui.components.TextUi
 import com.notesappify.ui.viewmodel.NotesViewModel
 
 @Composable
-fun AddNotesScreen(idNote: Int?, notesViewModel: NotesViewModel = hiltViewModel()) {
+fun AddNotesScreen(
+    idNote: Int?,
+    notesViewModel: NotesViewModel = hiltViewModel(),
+    onBack: () -> Unit
+) {
     val notes by notesViewModel.notesValidation.collectAsState()
     val context = LocalContext.current
 
     LaunchedEffect(idNote) {
-        if(idNote != null) {
+        if (idNote != null) {
             notesViewModel.setNote(idNote)
         }
     }
@@ -40,16 +45,25 @@ fun AddNotesScreen(idNote: Int?, notesViewModel: NotesViewModel = hiltViewModel(
         modifier = Modifier
             .fillMaxSize()
             .padding(30.dp),
-        verticalArrangement = Arrangement.spacedBy(5.dp)
+        verticalArrangement = Arrangement.spacedBy(5.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        TextUi("Registrar Notas")
+        TextUi(if (idNote != null) "Modificar Nota" else "Registrar Notas")
         TextFieldUi(notes.title, "Ingrese el titulo") { notesViewModel.setTitle(it) }
         TextFieldUi(
             notes.description,
             "Ingrese la descripcion"
         ) { notesViewModel.setDescription(it) }
-        ButtonUi("Registrar", notesViewModel.enableButton()) {
-            notesViewModel.insertNote()
+        ButtonUi(
+            if (idNote != null) "Modificar Nota" else "Registrar",
+            notesViewModel.enableButton()
+        ) {
+            if (idNote != null) {
+                notesViewModel.updateNote()
+            } else {
+                notesViewModel.insertNote()
+            }
+            onBack()
         }
     }
 }

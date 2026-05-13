@@ -46,6 +46,13 @@ class NotesViewModel @Inject constructor(private val dao: NotesDao) : ViewModel(
         }
     }
 
+    fun updateNote() {
+        viewModelScope.launch {
+            dao.updateNote(_notesValidation.value)
+            _message.emit("registro modificado con exito")
+        }
+    }
+
     fun setTitle(title: String) {
         _notesValidation.update {
             it.copy(title = title)
