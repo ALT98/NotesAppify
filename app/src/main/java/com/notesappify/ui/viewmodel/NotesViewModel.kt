@@ -59,9 +59,21 @@ class NotesViewModel @Inject constructor(private val dao: NotesDao) : ViewModel(
         }
     }
 
+    fun setSubtitle(subtitle: String) {
+        _notesValidation.update {
+            it.copy(subtitle = subtitle)
+        }
+    }
+
     fun setDescription(description: String) {
         _notesValidation.update {
             it.copy(description = description)
+        }
+    }
+
+    fun setNewTime() {
+        _notesValidation.update {
+            it.copy(registerTime = System.currentTimeMillis())
         }
     }
 

@@ -114,6 +114,7 @@ fun CardUi(notes: Notes, delete: () -> Unit, update: () -> Unit) {
                 Text(
                     text = notes.timeAgo(),
                     fontFamily = InterFontFamily,
+                    fontSize = 12.sp,
                     fontWeight = FontWeight.Normal,
                     color = Color(0xFF3F4948),
                     maxLines = 1

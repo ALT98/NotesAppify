@@ -50,6 +50,9 @@ fun AddNotesScreen(
     ) {
         TextUi(if (idNote != null) "Modificar Nota" else "Registrar Notas")
         TextFieldUi(notes.title, "Ingrese el titulo") { notesViewModel.setTitle(it) }
+        TextFieldUi(notes.subtitle, "Ingrese el subtitulo (opcional)") {
+            notesViewModel.setSubtitle(it)
+        }
         TextFieldUi(
             notes.description,
             "Ingrese la descripcion"
@@ -58,6 +61,8 @@ fun AddNotesScreen(
             if (idNote != null) "Modificar Nota" else "Registrar",
             notesViewModel.enableButton()
         ) {
+            notesViewModel.setNewTime()
+
             if (idNote != null) {
                 notesViewModel.updateNote()
             } else {
