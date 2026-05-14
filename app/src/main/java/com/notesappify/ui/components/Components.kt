@@ -38,6 +38,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.notesappify.custom_fonts.InterFontFamily
 import com.notesappify.data.Notes
+import com.notesappify.utils.timeAgo
 
 @Composable
 fun TextUi(text: String) {
@@ -111,7 +112,7 @@ fun CardUi(notes: Notes, delete: () -> Unit, update: () -> Unit) {
                 )
 
                 Text(
-                    text = "3 days ago",
+                    text = notes.timeAgo(),
                     fontFamily = InterFontFamily,
                     fontWeight = FontWeight.Normal,
                     color = Color(0xFF3F4948),
@@ -121,10 +122,10 @@ fun CardUi(notes: Notes, delete: () -> Unit, update: () -> Unit) {
 
             Spacer(modifier = Modifier.height(12.dp))
 
-            if (notes.id == 1) {
+            if (notes.subtitle.isNotBlank()) {
                 // Quoted text
                 Text(
-                    text = "\"The design of everyday things...\"",
+                    text = notes.subtitle,
                     fontFamily = InterFontFamily,
                     fontStyle = FontStyle.Italic,
                     color = Color(0xFF566060),
@@ -148,21 +149,16 @@ fun CardUi(notes: Notes, delete: () -> Unit, update: () -> Unit) {
 @Composable
 fun AlertDialogUi(showDialog: Boolean, confirmButton: () -> Unit, dismissButton: () -> Unit) {
     if (showDialog) {
-        AlertDialog(
-            title = {
-                Text("Estás seguro que deseas eliminar?")
-            },
-            onDismissRequest = dismissButton,
-            confirmButton = {
-                TextButton(onClick = confirmButton) {
-                    Text("Confirmar")
-                }
-            },
-            dismissButton = {
-                TextButton(onClick = dismissButton) {
-                    Text("Cancelar")
-                }
+        AlertDialog(title = {
+            Text("Estás seguro que deseas eliminar?")
+        }, onDismissRequest = dismissButton, confirmButton = {
+            TextButton(onClick = confirmButton) {
+                Text("Confirmar")
             }
-        )
+        }, dismissButton = {
+            TextButton(onClick = dismissButton) {
+                Text("Cancelar")
+            }
+        })
     }
 }

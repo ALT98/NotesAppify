@@ -7,5 +7,7 @@ import androidx.room.PrimaryKey
 data class Notes(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     val title: String = "",
+    val subtitle: String = "",
     val description: String = "",
+    val registerTime: Long = System.currentTimeMillis()
 )
