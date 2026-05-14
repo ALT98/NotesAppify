@@ -8,6 +8,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.notesappify.ui.screens.AddNotesScreen
 import com.notesappify.ui.screens.NotesScreens
+import com.notesappify.ui.screens.SearchScreen
 
 @Composable
 fun NavGraph() {
@@ -21,6 +22,8 @@ fun NavGraph() {
                 navController.navigate("add")
             }, update = {
                 navController.navigate("add?id=$it")
+            }, searchAction = {
+                navController.navigate("search")
             })
         }
         composable(
@@ -32,6 +35,11 @@ fun NavGraph() {
         ) {
             val idNote = it.arguments?.getString("idNote")?.toIntOrNull()
             AddNotesScreen(idNote) {
+                navController.navigateUp()
+            }
+        }
+        composable("search") {
+            SearchScreen {
                 navController.navigateUp()
             }
         }

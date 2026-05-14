@@ -1,15 +1,65 @@
-*.iml
-.gradle
-/local.properties
-/.idea/caches
-/.idea/libraries
-/.idea/modules.xml
-/.idea/workspace.xml
-/.idea/navEditor.xml
-/.idea/assetWizardSettings.xml
-.DS_Store
-/build
-/captures
-.externalNativeBuild
-.cxx
+# Gradle
+.gradle/
+build/
+!build/outputs/apk/debug/   # Optional: keep debug APKs if you want
+
+# Local configuration
 local.properties
+
+# Log files
+*.log
+log.txt
+
+# Android Studio / IntelliJ
+*.iml
+.idea/
+!.idea/codeStyles/
+!.idea/inspectionProfiles/
+!.idea/dictionaries/
+!.idea/runConfigurations/
+misc.xml
+deploymentTargetDropDown.xml
+render.experimental.xml
+
+# Build outputs
+*.apk
+*.aab
+*.ap_
+output-metadata.json
+captures/
+.externalNativeBuild/
+.cxx/
+obj/
+bin/
+
+# Keystore & signing files
+*.jks
+*.keystore
+*.p12
+*.pfx
+keystore.properties
+signing.properties
+
+# Google Services / Firebase
+google-services.json
+GoogleService-Info.plist
+
+# Android profiling
+*.hprof
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Secrets & sensitive files
+secrets.properties
+*.secret
+*.env
+
+# Navigation & other generated folders
+.navigation/
