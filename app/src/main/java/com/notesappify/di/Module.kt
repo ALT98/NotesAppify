@@ -2,8 +2,9 @@ package com.notesappify.di
 
 import android.content.Context
 import androidx.room.Room
-import com.notesappify.data.NotesDao
+import com.notesappify.data.dao.NotesDao
 import com.notesappify.data.NotesDatabase
+import com.notesappify.data.dao.SearchDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,9 +19,9 @@ object Module {
     @Singleton
     fun providesNotesDatabase(
         @ApplicationContext context: Context
-    ) : NotesDatabase {
+    ): NotesDatabase {
         return Room.databaseBuilder(
-            context =  context,
+            context = context,
             NotesDatabase::class.java,
             "notes_database"
         ).build()
@@ -28,7 +29,13 @@ object Module {
 
     @Provides
     @Singleton
-    fun providesGetDao(notesDatabase: NotesDatabase) : NotesDao{
+    fun providesGetDao(notesDatabase: NotesDatabase): NotesDao {
         return notesDatabase.getDao()
+    }
+
+    @Provides
+    @Singleton
+    fun providesGetSearchDao(notesDatabase: NotesDatabase): SearchDao {
+        return notesDatabase.getSearchDao()
     }
 }

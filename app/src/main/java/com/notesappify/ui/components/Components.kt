@@ -37,7 +37,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.notesappify.custom_fonts.InterFontFamily
-import com.notesappify.data.Notes
+import com.notesappify.data.models.Notes
 import com.notesappify.utils.timeAgo
 
 @Composable

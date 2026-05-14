@@ -1,6 +1,6 @@
 package com.notesappify.utils
 
-import com.notesappify.data.Notes
+import com.notesappify.data.models.Notes
 import java.util.concurrent.TimeUnit
 
 fun Notes.timeAgo(): String {

@@ -2,8 +2,8 @@ package com.notesappify.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.notesappify.data.Notes
-import com.notesappify.data.NotesDao
+import com.notesappify.data.models.Notes
+import com.notesappify.data.dao.NotesDao
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow

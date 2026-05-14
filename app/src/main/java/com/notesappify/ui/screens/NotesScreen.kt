@@ -38,7 +38,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.notesappify.custom_fonts.InterFontFamily
-import com.notesappify.data.Notes
+import com.notesappify.data.models.Notes
 import com.notesappify.ui.components.AlertDialogUi
 import com.notesappify.ui.components.CardUi
 import com.notesappify.ui.viewmodel.NotesViewModel
