@@ -51,9 +51,18 @@ fun SearchScreen(
             ) {
                 TopAppBar(
                     title = {
-                        TextFieldSearch(searchText, "Search your notes...") {
-                            searchText = it
-                        }
+                        TextFieldSearch(
+                            searchText,
+                            "Search your notes...",
+                            onValueChange = {
+                                searchText = it
+                            },
+                            onDone = {
+                                searchViewModel.setNewTime()
+                                searchViewModel.setParam(searchText)
+                                searchViewModel.insertSearch()
+                            }
+                        )
                     }, navigationIcon = {
                         IconButton(onClick = onBack) {
                             Icon(Icons.AutoMirrored.Default.ArrowBack, null)

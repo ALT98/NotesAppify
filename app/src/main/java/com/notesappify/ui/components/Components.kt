@@ -10,6 +10,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CarRepair
 import androidx.compose.material.icons.filled.Delete
@@ -33,6 +35,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -48,7 +51,7 @@ fun TextUi(text: String) {
 }
 
 @Composable
-fun TextFieldSearch(value: String, label: String, onValueChange: (String) -> Unit) {
+fun TextFieldSearch(value: String, label: String, onValueChange: (String) -> Unit, onDone: () -> Unit) {
     OutlinedTextField(
         value = value,
         onValueChange = onValueChange,
@@ -68,7 +71,15 @@ fun TextFieldSearch(value: String, label: String, onValueChange: (String) -> Uni
         shape = RoundedCornerShape(12.dp),
         placeholder = {
             Text(text = label)
-        })
+        },
+        keyboardOptions = KeyboardOptions(
+            imeAction = ImeAction.Done
+        ),
+        keyboardActions = KeyboardActions(
+            onDone = {
+                onDone()
+            }
+        ))
 }
 
 @Composable

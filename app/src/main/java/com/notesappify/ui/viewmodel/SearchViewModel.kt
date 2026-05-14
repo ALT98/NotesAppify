@@ -7,6 +7,7 @@ import com.notesappify.data.models.Search
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -22,5 +23,14 @@ class SearchViewModel @Inject constructor(private val dao: SearchDao) : ViewMode
         viewModelScope.launch {
             dao.insertQuery(_search.value)
         }
+    }
+
+    fun setParam(search: String) {
+        println("---Search: $search")
+        _search.update { it.copy(param = search) }
+    }
+
+    fun setNewTime() {
+        _search.update { it.copy(registerTime = System.currentTimeMillis()) }
     }
 }
