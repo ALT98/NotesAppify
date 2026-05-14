@@ -27,18 +27,22 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.notesappify.ui.components.LatestSearches
+import com.notesappify.ui.components.NotesCoincidenceContainer
 import com.notesappify.ui.components.TextFieldSearch
+import com.notesappify.ui.viewmodel.NotesViewModel
 import com.notesappify.ui.viewmodel.SearchViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchScreen(
     searchViewModel: SearchViewModel = hiltViewModel(),
+    notesViewModel: NotesViewModel = hiltViewModel(),
     onBack: () -> Unit
 ) {
 
     val latestSearches = searchViewModel.latestSearches.collectAsState(initial = listOf())
-    var searchText by remember { mutableStateOf("") }   // ← This is the key
+    val searchedNotes by notesViewModel.searchedNotes.collectAsState(initial = listOf())
+    var searchText by remember { mutableStateOf("") }
     val context = LocalContext.current
 
     Scaffold(
@@ -80,9 +84,19 @@ fun SearchScreen(
                 .fillMaxSize()
                 .padding(padding)
         ) {
-            if (latestSearches.value.isNotEmpty()) {
+            if (latestSearches.value.isNotEmpty() && searchText.isEmpty()) {
                 item {
                     LatestSearches(latestSearches.value)
+                }
+            }
+
+            if (searchText.isNotEmpty()) {
+                notesViewModel.searchCoincidences(searchText)
+            }
+
+            if (searchedNotes.isNotEmpty()) {
+                item {
+                    NotesCoincidenceContainer(searchedNotes)
                 }
             }
 

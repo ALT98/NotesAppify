@@ -4,17 +4,14 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.CarRepair
-import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.History
 import androidx.compose.material.icons.filled.NorthWest
 import androidx.compose.material3.AlertDialog
@@ -51,7 +48,12 @@ fun TextUi(text: String) {
 }
 
 @Composable
-fun TextFieldSearch(value: String, label: String, onValueChange: (String) -> Unit, onDone: () -> Unit) {
+fun TextFieldSearch(
+    value: String,
+    label: String,
+    onValueChange: (String) -> Unit,
+    onDone: () -> Unit
+) {
     OutlinedTextField(
         value = value,
         onValueChange = onValueChange,
@@ -250,7 +252,7 @@ fun SearchedItem(search: Search) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(8.dp,10.dp),
+            .padding(8.dp, 10.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         IconButton(
@@ -274,13 +276,24 @@ fun SearchedItem(search: Search) {
         )
 
         IconButton(
-            onClick = {  }
+            onClick = { }
         ) {
             Icon(
                 imageVector = Icons.Default.NorthWest,
                 contentDescription = "Menu",
                 tint = Color.LightGray
             )
+        }
+    }
+}
+
+@Composable
+fun NotesCoincidenceContainer(coincidences: List<Notes>) {
+    Column(
+        modifier = Modifier.fillMaxSize()
+    ) {
+        coincidences.forEach { note ->
+            CardUi(note, delete = {}, update = {})
         }
     }
 }

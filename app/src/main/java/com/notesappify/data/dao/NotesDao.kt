@@ -25,4 +25,7 @@ interface NotesDao {
 
     @Query("select * from notes where id = :id")
     suspend fun getCurrentNote(id: Int): Notes
+
+    @Query("select * from notes where title like '%' || :query || '%'")
+    fun searchNoteCoincidences(query: String): Flow<List<Notes>>
 }

@@ -26,7 +26,6 @@ class SearchViewModel @Inject constructor(private val dao: SearchDao) : ViewMode
     }
 
     fun setParam(search: String) {
-        println("---Search: $search")
         _search.update { it.copy(param = search) }
     }
 

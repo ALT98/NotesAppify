@@ -2,8 +2,8 @@ package com.notesappify.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.notesappify.data.models.Notes
 import com.notesappify.data.dao.NotesDao
+import com.notesappify.data.models.Notes
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -23,6 +23,9 @@ class NotesViewModel @Inject constructor(private val dao: NotesDao) : ViewModel(
     val message = _message.asSharedFlow()
 
     val getNotes = dao.getAllNotes()
+
+    private val _searchedNotes = MutableStateFlow(listOf<Notes>())
+    val searchedNotes = _searchedNotes.asStateFlow()
 
 
     fun insertNote() {
@@ -80,6 +83,14 @@ class NotesViewModel @Inject constructor(private val dao: NotesDao) : ViewModel(
     fun enableButton(): Boolean {
         val notes = _notesValidation.value
         return notes.title.isNotBlank() && notes.description.isNotBlank()
+    }
+
+    fun searchCoincidences(query: String) {
+        viewModelScope.launch {
+            dao.searchNoteCoincidences(query).collect { notes ->
+                _searchedNotes.value = notes
+            }
+        }
     }
 
 }
