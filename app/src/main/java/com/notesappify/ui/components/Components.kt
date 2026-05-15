@@ -196,6 +196,9 @@ fun CardUi(notes: Notes, delete: () -> Unit, update: () -> Unit) {
             Text(
                 text = notes.description,
                 fontFamily = InterFontFamily,
+                minLines = 1,
+                maxLines = 5,
+                overflow = TextOverflow.Ellipsis,
                 fontWeight = FontWeight.Normal,
                 color = Color(0xFF1a1c1c),
                 fontSize = 12.sp
