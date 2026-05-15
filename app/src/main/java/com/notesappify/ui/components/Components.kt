@@ -87,10 +87,28 @@ fun TextFieldSearch(
 @Composable
 fun TextFieldUi(value: String, label: String, onValueChange: (String) -> Unit) {
     OutlinedTextField(
-        value = value, onValueChange = onValueChange, modifier = Modifier.fillMaxWidth(), label = {
+        value = value,
+        onValueChange = onValueChange,
+        modifier = Modifier.fillMaxWidth(),
+        label = {
             Text(text = label)
         })
 }
+
+@Composable
+fun MultilineTextFieldUi(value: String, label: String, onValueChange: (String) -> Unit) {
+    OutlinedTextField(
+        value = value,
+        maxLines = 15,
+        minLines = 3,
+        singleLine = false,
+        onValueChange = onValueChange,
+        modifier = Modifier.fillMaxWidth(),
+        label = {
+            Text(text = label)
+        })
+}
+
 
 @Composable
 fun ButtonUi(text: String, enabled: Boolean, onClick: () -> Unit) {

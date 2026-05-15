@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.notesappify.ui.components.ButtonUi
+import com.notesappify.ui.components.MultilineTextFieldUi
 import com.notesappify.ui.components.TextFieldUi
 import com.notesappify.ui.components.TextUi
 import com.notesappify.ui.viewmodel.NotesViewModel
@@ -53,7 +54,7 @@ fun AddNotesScreen(
         TextFieldUi(notes.subtitle, "Ingrese el subtitulo (opcional)") {
             notesViewModel.setSubtitle(it)
         }
-        TextFieldUi(
+        MultilineTextFieldUi(
             notes.description,
             "Ingrese la descripcion"
         ) { notesViewModel.setDescription(it) }
