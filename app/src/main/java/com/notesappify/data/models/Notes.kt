@@ -1,4 +1,4 @@
-package com.notesappify.data
+package com.notesappify.data.models
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

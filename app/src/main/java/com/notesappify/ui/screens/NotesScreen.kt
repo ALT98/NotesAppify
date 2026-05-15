@@ -6,12 +6,12 @@ import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.navigationBarsPadding
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -38,7 +38,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.notesappify.custom_fonts.InterFontFamily
-import com.notesappify.data.Notes
+import com.notesappify.data.models.Notes
 import com.notesappify.ui.components.AlertDialogUi
 import com.notesappify.ui.components.CardUi
 import com.notesappify.ui.viewmodel.NotesViewModel
@@ -46,7 +46,10 @@ import com.notesappify.ui.viewmodel.NotesViewModel
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NotesScreens(
-    notesViewModel: NotesViewModel = hiltViewModel(), addNotes: () -> Unit, update: (String) -> Unit
+    notesViewModel: NotesViewModel = hiltViewModel(),
+    addNotes: () -> Unit,
+    update: (String) -> Unit,
+    searchAction: () -> Unit
 ) {
     val allNotes = notesViewModel.getNotes.collectAsState(initial = listOf())
 
@@ -81,7 +84,7 @@ fun NotesScreens(
                         Icon(Icons.Default.Menu, null)
                     }
                 }, actions = {
-                    IconButton(onClick = {}) {
+                    IconButton(onClick = searchAction) {
                         Icon(Icons.Default.Search, null)
                     }
                 })
