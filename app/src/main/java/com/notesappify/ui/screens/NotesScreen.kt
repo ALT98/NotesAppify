@@ -49,7 +49,8 @@ fun NotesScreens(
     notesViewModel: NotesViewModel = hiltViewModel(),
     addNotes: () -> Unit,
     update: (String) -> Unit,
-    searchAction: () -> Unit
+    searchAction: () -> Unit,
+    open: () -> Unit
 ) {
     val allNotes = notesViewModel.getNotes.collectAsState(initial = listOf())
 
@@ -112,6 +113,8 @@ fun NotesScreens(
                     currentNote = note
                 }, update = {
                     update(note.id.toString())
+                }, open = {
+                    open()
                 })
             }
         }

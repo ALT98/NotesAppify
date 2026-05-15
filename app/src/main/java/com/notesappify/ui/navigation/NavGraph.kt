@@ -7,6 +7,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.notesappify.ui.screens.AddNotesScreen
+import com.notesappify.ui.screens.NoteDetailScreen
 import com.notesappify.ui.screens.NotesScreens
 import com.notesappify.ui.screens.SearchScreen
 
@@ -24,6 +25,8 @@ fun NavGraph() {
                 navController.navigate("add?id=$it")
             }, searchAction = {
                 navController.navigate("search")
+            }, open = {
+                navController.navigate("details")
             })
         }
         composable(
@@ -42,6 +45,9 @@ fun NavGraph() {
             SearchScreen {
                 navController.navigateUp()
             }
+        }
+        composable("details") {
+            NoteDetailScreen()
         }
     }
 }

@@ -125,7 +125,7 @@ fun ButtonUi(text: String, enabled: Boolean, onClick: () -> Unit) {
 }
 
 @Composable
-fun CardUi(notes: Notes, delete: () -> Unit, update: () -> Unit) {
+fun CardUi(notes: Notes, delete: () -> Unit, update: () -> Unit, open: () -> Unit) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -134,7 +134,8 @@ fun CardUi(notes: Notes, delete: () -> Unit, update: () -> Unit) {
         shape = RoundedCornerShape(10.dp),
         colors = CardDefaults.cardColors(
             containerColor = Color.White
-        )
+        ),
+        onClick = open
     ) {
         Column(
             modifier = Modifier.padding(20.dp)
@@ -314,7 +315,7 @@ fun NotesCoincidenceContainer(coincidences: List<Notes>) {
         modifier = Modifier.fillMaxSize()
     ) {
         coincidences.forEach { note ->
-            CardUi(note, delete = {}, update = {})
+            CardUi(note, delete = {}, update = {}, open = {})
         }
     }
 }
