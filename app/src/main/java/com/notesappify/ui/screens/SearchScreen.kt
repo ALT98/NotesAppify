@@ -60,6 +60,7 @@ fun SearchScreen(
                             "Search your notes...",
                             onValueChange = {
                                 searchText = it
+                                notesViewModel.onSearchQueryChanged(it)
                             },
                             onDone = {
                                 searchViewModel.setNewTime()
@@ -88,10 +89,6 @@ fun SearchScreen(
                 item {
                     LatestSearches(latestSearches.value)
                 }
-            }
-
-            if (searchText.isNotEmpty()) {
-                notesViewModel.searchCoincidences(searchText)
             }
 
             if (searchedNotes.isNotEmpty()) {

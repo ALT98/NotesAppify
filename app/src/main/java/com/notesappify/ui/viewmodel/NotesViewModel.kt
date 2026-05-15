@@ -5,10 +5,16 @@ import androidx.lifecycle.viewModelScope
 import com.notesappify.data.dao.NotesDao
 import com.notesappify.data.models.Notes
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -24,8 +30,20 @@ class NotesViewModel @Inject constructor(private val dao: NotesDao) : ViewModel(
 
     val getNotes = dao.getAllNotes()
 
-    private val _searchedNotes = MutableStateFlow(listOf<Notes>())
-    val searchedNotes = _searchedNotes.asStateFlow()
+    private val _searchQuery = MutableStateFlow("")
+
+    @OptIn(ExperimentalCoroutinesApi::class, FlowPreview::class)
+    val searchedNotes = _searchQuery
+        .debounce(300)
+        .flatMapLatest { query ->
+            dao.searchNoteCoincidences(query)
+        }
+        .stateIn(
+            viewModelScope,
+            SharingStarted.WhileSubscribed(5000),
+            emptyList()
+        )
+
 
 
     fun insertNote() {
@@ -85,12 +103,7 @@ class NotesViewModel @Inject constructor(private val dao: NotesDao) : ViewModel(
         return notes.title.isNotBlank() && notes.description.isNotBlank()
     }
 
-    fun searchCoincidences(query: String) {
-        viewModelScope.launch {
-            dao.searchNoteCoincidences(query).collect { notes ->
-                _searchedNotes.value = notes
-            }
-        }
+    fun onSearchQueryChanged(query: String) {
+        _searchQuery.value = query
     }
-
 }
